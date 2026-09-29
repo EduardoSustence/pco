@@ -13,10 +13,13 @@ const questions = questionsData as Question[];
 const likertOptions = ["Nunca é verdade","Na maioria das vezes não é verdade","Às vezes é verdade, às vezes não","Na maioria das vezes é verdade","Sempre é verdade"];
 const sectionLabels:Record<string,string> = {"Clima Organizacional":"Clima organizacional","Módulo Complementar":"Módulos complementares","Perfil/Demografia":"Perfil e demografia","Perfil Socioeconômico":"Perfil socioeconômico","Questões Abertas":"Questões abertas"};
 function formatAccessCode(value:string){
-  const characters=value.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,18);
-  return characters.match(/.{1,4}/g)?.join("-")??"";
-}
-
+  // Remove caracteres inválidos e converte para maiúsculas
+  const clean=value.toUpperCase().replace(/[^A-Z0-9]/g,"");
+  
+  // Formata como PESQ-2026-XXXXX (prefixo fixo + 5 chars livres)
+  if(clean.length<=4)return clean;
+  if(clean.length<=8)return clean.slice(0,4)+"-"+clean.slice(4);
+  return clean.slice(0,4)+"-"+clean.slice(4,8)+"-"+clean.slice(8,13);
 export default function Home(){
   const [area,setArea]=useState<Area>("respondent");
   const [step,setStep]=useState<SurveyStep>("access");
