@@ -20,6 +20,7 @@ function formatAccessCode(value:string){
   if(clean.length<=4)return clean;
   if(clean.length<=8)return clean.slice(0,4)+"-"+clean.slice(4);
   return clean.slice(0,4)+"-"+clean.slice(4,8)+"-"+clean.slice(8,13);
+}
 export default function Home(){
   const [area,setArea]=useState<Area>("respondent");
   const [step,setStep]=useState<SurveyStep>("access");
@@ -35,6 +36,7 @@ export default function Home(){
       setArea("respondent");
       setCurrentIndex(0);
       setStep("question");
+    }
     }
   },[]);
   const currentQuestion=questions[currentIndex];
