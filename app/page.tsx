@@ -37,7 +37,6 @@ export default function Home(){
       setCurrentIndex(0);
       setStep("question");
     }
-    }
   },[]);
   const currentQuestion=questions[currentIndex];
   const progress=step==="question"?Math.round(5+((currentIndex+1)/questions.length)*90):({access:0,privacy:2,instructions:5,review:97,done:100} as Record<SurveyStep,number>)[step];
